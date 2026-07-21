@@ -1,0 +1,14 @@
+README.md
+pyproject.toml
+src/animemangadb/__init__.py
+src/animemangadb.egg-info/PKG-INFO
+src/animemangadb.egg-info/SOURCES.txt
+src/animemangadb.egg-info/dependency_links.txt
+src/animemangadb.egg-info/top_level.txt
+src/animemangadb/api/__init__.py
+src/animemangadb/config/__init__.py
+src/animemangadb/data/__init__.py
+src/animemangadb/domain/__init__.py
+src/animemangadb/ingestion/__init__.py
+src/animemangadb/services/__init__.py
+src/animemangadb/tools/__init__.py
