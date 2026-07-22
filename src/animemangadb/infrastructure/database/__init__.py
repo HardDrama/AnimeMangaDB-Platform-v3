@@ -17,6 +17,7 @@ from .models import (
     SeriesORM,
 )
 from .session import SessionFactory
+from .mappers import Mapper
 
 __all__ = [
     "Base",
@@ -32,4 +33,5 @@ __all__ = [
     "EpisodeORM",
     "ChapterORM",
     "EpisodeChapterMappingORM",
+    "Mapper",
 ]
