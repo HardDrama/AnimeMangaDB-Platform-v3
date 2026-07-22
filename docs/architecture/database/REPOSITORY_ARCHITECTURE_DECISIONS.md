@@ -1,58 +1,37 @@
 # Repository Architecture Decisions
 
-## ADR-001 — Inject Sessions
+## Status
 
-**Decision:** Repositories receive an active SQLAlchemy Session.
+Updated for v0.5.9B.
 
-**Reason:** Session creation is an application concern. Injection
-keeps repositories deterministic, testable, and usable within one
-transaction spanning multiple repositories.
+## ADR-001 — Sessions are injected
 
-## ADR-002 — Callers Own Transactions
+Repositories receive an existing SQLAlchemy Session. They never construct or own one.
 
-**Decision:** Repositories never commit or roll back.
+## ADR-002 — Callers own transactions
 
-**Reason:** A use case may require several repository operations to
-succeed atomically. A repository cannot know whether its individual
-operation completes the entire business transaction.
+Repositories may add, delete, query, flush, and refresh. They never commit or roll back.
 
-## ADR-003 — Repositories Compose Object Graphs
+## ADR-003 — Repositories compose object graphs
 
-**Decision:** Concrete repositories resolve relationships and supply
-those objects to shallow mappers.
+Mappers remain shallow. Concrete repositories resolve ORM parents and reconstruct Domain parents before invoking child mappers.
 
-**Reason:** Recursive mappers obscure query behavior and can create
-cycles such as Series → AnimeTitle → Series.
+## ADR-004 — Persistence identity remains internal
 
-## ADR-004 — Persistence Identity Stays Internal
+Database primary keys are not copied into Domain entities and are not required by public repository methods.
 
-**Decision:** Database primary keys are available only inside the
-infrastructure layer.
+## ADR-005 — Public repository methods use Domain types
 
-**Reason:** Domain identity is represented by canonical business
-values such as slugs and installment identifiers. Database IDs are
-storage implementation details.
+Public inputs and outputs use Domain entities and value objects. ORM rows do not cross the repository boundary.
 
-## ADR-005 — No Generic Public CRUD API
+## ADR-006 — Child title identity is parent-scoped
 
-**Decision:** The base repository exposes only protected mechanics.
+Anime and manga title lookup uses the parent Series slug plus the child slug or canonical title. This matches the composite uniqueness rules in persistence.
 
-**Reason:** Public repository methods must express real domain
-operations. A generic `update(entity)` or `find(filters)` interface
-would hide semantics and create hypothetical capabilities.
+## ADR-007 — Parents must already be persistent
 
-## ADR-006 — Installment Identifiers Remain Strings
+A child title cannot be staged unless its parent Series can be resolved in the current Session. Missing parents produce `LookupError` rather than silently creating a new aggregate.
 
-**Decision:** Repository queries compare persisted string
-identifiers without numeric coercion.
+## ADR-008 — Reads explicitly load required parents
 
-**Reason:** Valid identifiers can include fractional values, prefixes,
-suffixes, specials, and named installments.
-
-## ADR-007 — SQLAlchemy Does Not Cross the Repository Boundary
-
-**Decision:** Concrete repositories return Domain entities to their
-consumers.
-
-**Reason:** The API and application layers must remain independent of
-SQLAlchemy state, lazy loading, Sessions, and persistence models.
+Child repository queries eagerly load their Series relationship before graph composition. Repository results therefore do not depend on lazy loading after the Session boundary.
