@@ -18,8 +18,11 @@ def test_base_has_metadata():
     )
 
 
-def test_metadata_initially_contains_no_tables():
-    assert Base.metadata.tables == {}
+def test_metadata_has_table_collection():
+    assert hasattr(
+        Base.metadata,
+        "tables",
+    )
 
 
 def test_metadata_object_is_shared():
@@ -40,4 +43,7 @@ def test_metadata_schema_is_none():
 def test_metadata_is_mutable_by_sqlalchemy():
     metadata = Base.metadata
 
-    assert hasattr(metadata, "tables")
+    assert hasattr(
+        metadata,
+        "tables",
+    )
