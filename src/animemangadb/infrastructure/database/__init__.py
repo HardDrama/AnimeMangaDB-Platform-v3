@@ -8,6 +8,11 @@ from .config import (
     load_database_config,
 )
 from .engine import create_database_engine
+from .mappers import (
+    DEFAULT_MAPPING_POLICY,
+    Mapper,
+    MappingPolicy,
+)
 from .models import (
     AnimeTitleORM,
     ChapterORM,
@@ -17,7 +22,6 @@ from .models import (
     SeriesORM,
 )
 from .session import SessionFactory
-from .mappers import Mapper
 
 __all__ = [
     "Base",
@@ -34,4 +38,6 @@ __all__ = [
     "ChapterORM",
     "EpisodeChapterMappingORM",
     "Mapper",
+    "MappingPolicy",
+    "DEFAULT_MAPPING_POLICY",
 ]
