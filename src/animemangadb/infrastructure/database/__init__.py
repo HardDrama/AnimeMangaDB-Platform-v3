@@ -1,11 +1,5 @@
 """
-Database infrastructure.
-
-This package contains configuration,
-SQLAlchemy integration,
-ORM persistence models,
-repositories,
-and mapping logic.
+Database infrastructure package.
 """
 
 from .base import Base
@@ -15,11 +9,15 @@ from .config import (
     DatabaseConfig,
     load_database_config,
 )
+from .engine import create_database_engine
+from .session import SessionFactory
 
 __all__ = [
     "Base",
+    "DatabaseConfig",
     "DEFAULT_SQLITE_URL",
     "DATABASE_URL_ENVIRONMENT_VARIABLE",
-    "DatabaseConfig",
     "load_database_config",
+    "create_database_engine",
+    "SessionFactory",
 ]
