@@ -1,15 +1,23 @@
 """
-Database infrastructure for AnimeMangaDB.
+Database infrastructure.
 
-This package will contain:
-
-- SQLAlchemy configuration
-- ORM persistence models
-- domain-to-persistence mappers
-- repository implementations
-- transaction and session management
-
-The package intentionally contains no database implementation during
-v0.5.1. This checkpoint establishes the package boundary and persistence
-strategy before framework-specific behavior is introduced.
+This package contains configuration,
+SQLAlchemy integration,
+ORM persistence models,
+repositories,
+and mapping logic.
 """
+
+from .config import (
+    DATABASE_URL_ENVIRONMENT_VARIABLE,
+    DEFAULT_SQLITE_URL,
+    DatabaseConfig,
+    load_database_config,
+)
+
+__all__ = [
+    "DEFAULT_SQLITE_URL",
+    "DATABASE_URL_ENVIRONMENT_VARIABLE",
+    "DatabaseConfig",
+    "load_database_config",
+]
