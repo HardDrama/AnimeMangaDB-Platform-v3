@@ -1,37 +1,39 @@
 # Repository Architecture Decisions
 
-## Status
-
-Updated for v0.5.9B.
+Version: v0.5.9C
 
 ## ADR-001 — Sessions are injected
 
-Repositories receive an existing SQLAlchemy Session. They never construct or own one.
+Repositories receive a caller-owned SQLAlchemy Session.
 
 ## ADR-002 — Callers own transactions
 
-Repositories may add, delete, query, flush, and refresh. They never commit or roll back.
+Repositories never commit, roll back, or close Sessions.
 
-## ADR-003 — Repositories compose object graphs
+## ADR-003 — Mappers remain shallow
 
-Mappers remain shallow. Concrete repositories resolve ORM parents and reconstruct Domain parents before invoking child mappers.
+Mappers convert one entity at a time and receive already-resolved parents or related objects.
 
-## ADR-004 — Persistence identity remains internal
+## ADR-004 — Repositories compose object graphs
 
-Database primary keys are not copied into Domain entities and are not required by public repository methods.
+Title repositories compose Series parents. Installment repositories extend this rule by composing Series → Title → Installment graphs. Mapping repositories compose both branches.
 
-## ADR-005 — Public repository methods use Domain types
+## ADR-005 — Persistence identity remains internal
 
-Public inputs and outputs use Domain entities and value objects. ORM rows do not cross the repository boundary.
+Database primary keys do not enter Domain entities or public repository APIs.
 
-## ADR-006 — Child title identity is parent-scoped
+## ADR-006 — Installment identifiers remain strings
 
-Anime and manga title lookup uses the parent Series slug plus the child slug or canonical title. This matches the composite uniqueness rules in persistence.
+Repositories preserve `InstallmentIdentifier.value` exactly. They do not parse, normalize, or numerically sort identifiers.
 
-## ADR-007 — Parents must already be persistent
+## ADR-007 — Installment identity is parent-scoped
 
-A child title cannot be staged unless its parent Series can be resolved in the current Session. Missing parents produce `LookupError` rather than silently creating a new aggregate.
+An episode is identified by Series, AnimeTitle, and installment identifier. A chapter is identified by Series, MangaTitle, and installment identifier. This mirrors the ORM uniqueness constraints without exposing database IDs.
 
-## ADR-008 — Reads explicitly load required parents
+## ADR-008 — Mapping identity is relational
 
-Child repository queries eagerly load their Series relationship before graph composition. Repository results therefore do not depend on lazy loading after the Session boundary.
+An EpisodeChapterMapping is identified by its resolved Episode and Chapter pair. The repository enforces this through Domain relationships and the database unique constraint.
+
+## ADR-009 — Public generic CRUD is avoided
+
+Concrete repositories expose business-specific operations rather than a public infrastructure-oriented CRUD surface.
