@@ -8,6 +8,7 @@ repositories,
 and mapping logic.
 """
 
+from .base import Base
 from .config import (
     DATABASE_URL_ENVIRONMENT_VARIABLE,
     DEFAULT_SQLITE_URL,
@@ -16,6 +17,7 @@ from .config import (
 )
 
 __all__ = [
+    "Base",
     "DEFAULT_SQLITE_URL",
     "DATABASE_URL_ENVIRONMENT_VARIABLE",
     "DatabaseConfig",
