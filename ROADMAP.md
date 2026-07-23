@@ -29,8 +29,6 @@
 - Future expansion policy
 - Initial Architecture Decision Records
 
-## Next
-
 ### v0.4.0 — Domain Layer
 
 - Domain identifiers
@@ -44,10 +42,22 @@
 - Domain exceptions
 - Domain unit tests
 
+### v0.5.0 — Database Layer
+
+## Current 
+
+### v0.6.0 — Repository Layer
+• v0.6.0 Application Services Foundation
+• v0.6.1 Repository Protocol Foundation 
+• v0.6.2 Series Query Service 
+• v0.6.3 Title Query Services 
+• v0.6.4 Installment Query Services
+• v0.6.5 Mapping Query Services
+• v0.6.6 Transaction Boundary
+• v0.6.7 Application Service Certification
+
 ## Future
 
-### v0.5.0 — Database Layer
-### v0.6.0 — Repository Layer
 ### v0.7.0 — Service Layer
 ### v0.8.0 — Ingestion Layer
 ### v0.9.0 — API Layer
