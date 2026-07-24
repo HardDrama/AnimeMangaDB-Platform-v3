@@ -52,7 +52,20 @@
 • v0.6.2 Series Query Service 
 • v0.6.3 Title Query Services 
 • v0.6.4 Installment Query Services
-• v0.6.5 Mapping Query Services
+
+### v0.6.5 — Episode–Chapter Mapping Query Services
+
+**Status:** Certified
+
+- [x] Define the mapping repository protocol.
+- [x] Add exact Episode–Chapter mapping lookup.
+- [x] Add Episode-based mapping queries.
+- [x] Add Chapter-based mapping queries.
+- [x] Verify missing and empty-result behavior.
+- [x] Verify public service and protocol exports.
+- [x] Complete regression validation.
+- [x] Certify the feature checkpoint.
+
 • v0.6.6 Transaction Boundary
 • v0.6.7 Application Service Certification
 
