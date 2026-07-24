@@ -42,3 +42,27 @@ class EpisodeChapterMappingQueryService:
             episode,
             chapter,
         )
+
+    def list_for_episode(
+        self,
+        episode: Episode,
+    ) -> list[EpisodeChapterMapping]:
+        """
+        Return every mapping associated with one Episode.
+        """
+
+        return self._repository.list_for_episode(
+            episode,
+        )
+
+    def list_for_chapter(
+        self,
+        chapter: Chapter,
+    ) -> list[EpisodeChapterMapping]:
+        """
+        Return every mapping associated with one Chapter.
+        """
+
+        return self._repository.list_for_chapter(
+            chapter,
+        )

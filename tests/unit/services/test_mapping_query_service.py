@@ -100,3 +100,83 @@ def test_get_returns_none_when_mapping_is_missing():
         chapter,
     )
     assert result is None
+
+
+def test_list_for_episode_delegates_to_repository():
+    repository = Mock()
+    service = EpisodeChapterMappingQueryService(repository)
+    episode, chapter = build_episode_and_chapter()
+    mappings = [
+        EpisodeChapterMapping(
+            episode,
+            chapter,
+        ),
+    ]
+
+    repository.list_for_episode.return_value = mappings
+
+    result = service.list_for_episode(
+        episode,
+    )
+
+    repository.list_for_episode.assert_called_once_with(
+        episode,
+    )
+    assert result is mappings
+
+
+def test_list_for_episode_returns_empty_list_when_no_mappings_exist():
+    repository = Mock()
+    service = EpisodeChapterMappingQueryService(repository)
+    episode, _ = build_episode_and_chapter()
+
+    repository.list_for_episode.return_value = []
+
+    result = service.list_for_episode(
+        episode,
+    )
+
+    repository.list_for_episode.assert_called_once_with(
+        episode,
+    )
+    assert result == []
+
+
+def test_list_for_chapter_delegates_to_repository():
+    repository = Mock()
+    service = EpisodeChapterMappingQueryService(repository)
+    episode, chapter = build_episode_and_chapter()
+    mappings = [
+        EpisodeChapterMapping(
+            episode,
+            chapter,
+        ),
+    ]
+
+    repository.list_for_chapter.return_value = mappings
+
+    result = service.list_for_chapter(
+        chapter,
+    )
+
+    repository.list_for_chapter.assert_called_once_with(
+        chapter,
+    )
+    assert result is mappings
+
+
+def test_list_for_chapter_returns_empty_list_when_no_mappings_exist():
+    repository = Mock()
+    service = EpisodeChapterMappingQueryService(repository)
+    _, chapter = build_episode_and_chapter()
+
+    repository.list_for_chapter.return_value = []
+
+    result = service.list_for_chapter(
+        chapter,
+    )
+
+    repository.list_for_chapter.assert_called_once_with(
+        chapter,
+    )
+    assert result == []
