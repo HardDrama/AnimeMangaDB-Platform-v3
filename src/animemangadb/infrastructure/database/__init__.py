@@ -22,6 +22,7 @@ from .models import (
     SeriesORM,
 )
 from .session import SessionFactory
+from .transaction import SQLAlchemyTransaction
 
 __all__ = [
     "Base",
@@ -40,4 +41,5 @@ __all__ = [
     "Mapper",
     "MappingPolicy",
     "DEFAULT_MAPPING_POLICY",
+    "SQLAlchemyTransaction",
 ]
