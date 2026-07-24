@@ -67,6 +67,20 @@
 - [x] Certify the feature checkpoint.
 
 • v0.6.6 Transaction Boundary
+    Define a TransactionProtocol in the service layer.
+    Publicly export the protocol.
+    Add a SQLAlchemy implementation in database infrastructure.
+    Publicly export the concrete implementation.
+    Verify the implementation satisfies the protocol.
+    Verify it uses the injected session.
+    Verify commit() delegates to that session exactly once.
+    Verify rollback() delegates to that session exactly once.
+    Verify it does not create or replace the session.
+    Run integration tests showing that:
+    Work staged by multiple repositories is persisted by one commit.
+    Work staged by multiple repositories is completely discarded by one rollback.
+    Run the full regression suite and Ruff.
+    Create one lean v0.6.6 validation log and update the roadmap.
 • v0.6.7 Application Service Certification
 
 ## Future
