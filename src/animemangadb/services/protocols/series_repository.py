@@ -16,8 +16,16 @@ from animemangadb.domain.value_objects.slug import Slug
 
 class SeriesRepositoryProtocol(Protocol):
     """
-    Read-oriented protocol for Series repositories.
+    Persistence protocol for Series repositories.
     """
+
+    def add(
+        self,
+        domain_object: Series,
+    ) -> Series:
+        """
+        Stage a new Series and return the supplied domain entity.
+        """
 
     def get_by_slug(
         self,

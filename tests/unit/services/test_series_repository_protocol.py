@@ -2,7 +2,7 @@
 Series Repository Protocol Tests
 
 Feature Checkpoint
-v0.6.1
+v0.7.0
 """
 
 from typing import runtime_checkable
@@ -39,6 +39,7 @@ def test_database_repository_satisfies_protocol():
     """
 
     required_methods = (
+        "add",
         "get_by_slug",
         "get_by_title",
         "exists_by_slug",
